@@ -1,4 +1,3 @@
-import os
 import openpyxl
 import csv
 import pandas as pd
@@ -213,7 +212,7 @@ while True:
                             print("Elija una opcion para obtener todos los datos del Autor: ")
                             AUTOR=str(input()).upper()
                             datos=DATA.loc[DATA["AUTOR"].isin([AUTOR])]
-                            print(datos_titulo)
+                            print(datos)
                             print(("*")*40)
                             print(("*")*40)
                             print("****      Reporte por autor      ****")
@@ -248,7 +247,7 @@ while True:
                             print("Elija una opcion para obtener todos los datos del genero: ")
                             GENERO=str(input()).upper()
                             datos=DATA.loc[DATA["GENERO"].isin([GENERO])]
-                            print(datos_genero)
+                            print(datos)
                             print(("*")*40)
                             print(("*")*40)
                             print("****      Reporte por genero      ****")
