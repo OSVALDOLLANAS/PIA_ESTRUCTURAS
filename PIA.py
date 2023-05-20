@@ -223,11 +223,11 @@ while True:
                                 datos_titulo.to_csv('Reporte_por_autor.csv', index=False)
                                 print('El archivo csv se nombro Reporte_por_autor.csv')
                                 continue
-                            if opcion2_2_2==1:
+                            if opcion2_2_2==2:
                                 datos_titulo.to_excel('Reporte_por_autor.xlsx', index=False)
                                 print('El archivo xlsx se nombro Reporte_por_autor.xlsx')
                                 continue
-                            if opcion2_2_2==1:
+                            if opcion2_2_2==3:
                                 break
 
                     if opcion2_2==3:
