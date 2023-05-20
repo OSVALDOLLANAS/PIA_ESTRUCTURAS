@@ -1,4 +1,3 @@
-import os
 import openpyxl
 import csv
 import pandas as pd
@@ -240,22 +239,26 @@ while True:
                             print("*"*40)
                             print(DATA)
                             print("*"*40)
-                            GENERO=input("Elija una opcion para obtener todos los datos del genero: ").upper()
                             conn=sqlite3.connect('biblioteca.db')
                             mi_cursor=conn.cursor()
-                            consulta="SELECT*FROM BIBLOTECA WHERE GENERO = ?"
+                            mi_cursor.execute("SELECT*FROM BIBLIOTECA")
                             RECOPILACION=mi_cursor.fetchall()
-                            DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
-                            print(DATA)
+                            DATA=pd.DataFrame(RECOPILACION,columns={'ID':[],'TITULO':[],'AUTOR':[],'GENERO':[],'ANIO_PUBLICACION':[],'ISBN':[],'FECHA_ADQUISICION':[],'ID_GENERO':[],\
+                                                                    'ID_AUTOR':[]})
+                            print("Elija una opcion para obtener todos los datos del genero: ")
+                            GENERO=str(input()).upper()
+                            datos_genero=DATA.loc[DATA["GENERO"].isin([GENERO])]
+                            print(datos_genero)
+                            print(("*")*40)
                             print(("*")*40)
                             print("****      Reporte por genero      ****")
                             opcion2_2_3=int(input("[1]Exportar reporte en formato CSV\n[2]Exportar reporte en formato MsExcel\n[3]No exportar nada\n Elija una opcion:"))
                             if opcion2_2_3==1:
-                                DATA.to_csv('Reporte_por_genero.csv', index=False)
+                                datos_genero.to_csv('Reporte_por_genero.csv', index=False)
                                 print('El archivo csv se nombro Reporte_por_genero.csv')
                                 continue
                             if opcion2_2_3==2:
-                                DATA.to_excel('Reporte_por_genero.xlsx', index=False)
+                                datos_genero.to_excel('Reporte_por_genero.xlsx', index=False)
                                 print('El archivo xlsx se nombro Reporte_por_genero.xlsx')
                                 continue
                             if opcion2_2_3==3:
@@ -272,23 +275,25 @@ while True:
                             print(DATA)
                             print("*"*40)
                             conn=sqlite3.connect('biblioteca.db')
-                            print("Elija una opcion para obtener todos los datos del año de publicacion: ")
-                            ANIO_PUBLICACION=int(input())
                             mi_cursor=conn.cursor()
-                            consulta="SELECT*FROM BIBLIOTECA WHERE ANIO_PUBLICACION = ?"
-                            mi_cursor.execute(consulta,(ANIO_PUBLICACION))
+                            mi_cursor.execute("SELECT*FROM BIBLIOTECA")
                             RECOPILACION=mi_cursor.fetchall()
-                            DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
-                            print(DATA)
+                            DATA=pd.DataFrame(RECOPILACION,columns={'ID':[],'TITULO':[],'AUTOR':[],'GENERO':[],'ANIO_PUBLICACION':[],'ISBN':[],'FECHA_ADQUISICION':[],'ID_GENERO':[],\
+                                                                    'ID_AUTOR':[]})
+                            print("Elija una opcion para obtener todos los datos de un año determinado: ")
+                            ANIO_PUBLICACION=int(input())
+                            datos_anio_publicacion=DATA.loc[DATA["ANIO_PUBLICACION"].isin([ANIO_PUBLICACION])]
+                            print(datos_anio_publicacion)
+                            print(("*")*40)
                             print(("*")*40)
                             print("****      Reporte por año en especifico      ****")
                             opcion2_2_4=int(input("[1]Exportar reporte en formato CSV\n[2]Exportar reporte en formato MsExcel\n[3]No exportar nada\n Elija una opcion:"))
                             if opcion2_2_4==1:
-                                DATA.to_csv('Reporte_anio_publicacion.csv', index=False)
+                                datos_anio_publicacion.to_csv('Reporte_anio_publicacion.csv', index=False)
                                 print('El archivo csv se nombro Reporte_anio_publicacion.csv')
                                 continue
                             if opcion2_2_4==2:
-                                DATA.to_excel('Reporte_anio_publicacion.xlsx', index=False)
+                                datos_anio_publicacion.to_excel('Reporte_anio_publicacion.xlsx', index=False)
                                 print('El archivo xlsx se nombro Reporte_anio_publicacion.xlsx')
                                 continue
                             if opcion2_2_4==3:
